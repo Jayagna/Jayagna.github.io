@@ -91,30 +91,27 @@ h1{font:800 clamp(2.6rem,6.3vw,4.7rem)/1.0 var(--display);letter-spacing:-.04em;
 .btn.primary:hover::before{transform:translateX(120%)}
 .btn svg{width:17px;height:17px;flex:none}
 
-/* forecast figure */
-.figure{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 18px 14px;box-shadow:0 24px 50px -30px rgba(17,29,51,.4);margin:0}
-.fig-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:600 .72rem/1.3 var(--mono);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
-.fig-head b{color:var(--ink)}
-.chart-box{position:relative;margin-top:10px;touch-action:pan-y}
-#fc{width:100%;height:auto;display:block;cursor:crosshair}
-#fc .axis{stroke:var(--line);stroke-width:1}
-#fc .tick{fill:var(--muted);font:500 10px var(--mono)}
-#fc .obs{fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linejoin:round}
-#fc .pred{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linejoin:round}
-#fc .band{fill:var(--accent);opacity:.13}
-#fc .now{stroke:var(--warm);stroke-width:1.2;stroke-dasharray:3 3}
-#fc .nowlbl{fill:var(--warm);font:600 10px var(--mono)}
-#fc .xh{stroke:var(--muted);stroke-width:1;stroke-dasharray:2 3}
-#fc .xdot{fill:var(--surface);stroke:var(--accent);stroke-width:2.5}
-.tip{position:absolute;top:0;left:0;pointer-events:none;background:var(--ink);color:var(--bg);font:600 .72rem/1.35 var(--mono);padding:7px 9px;border-radius:7px;white-space:nowrap;transform:translate(-50%,-110%);opacity:0;transition:opacity .15s}
-.tip i{font-style:normal;display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:0}
-.fig-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
-.fig-cap{font:400 .74rem/1.5 var(--mono);color:var(--muted);margin:0}
-.rerun{font:600 .72rem/1 var(--mono);border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:8px 10px;border-radius:7px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
-.rerun:hover{border-color:var(--accent)}
-.rerun svg{width:13px;height:13px;transition:transform .6s var(--ease)}
-.rerun:hover svg{transform:rotate(-180deg)}
-
+/* code card */
+.code{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 50px -30px rgba(17,29,51,.4);overflow:hidden;margin:0;transition:transform .5s var(--ease)}
+.code-bar{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 60%,var(--surface))}
+.code-bar i{width:11px;height:11px;border-radius:50%;background:var(--line)}
+.code-bar i:nth-child(1){background:#ec6a5e}.code-bar i:nth-child(2){background:#f4bf4f}.code-bar i:nth-child(3){background:#61c554}
+.code-bar span{margin-left:8px;font:600 .74rem/1 var(--mono);color:var(--muted)}
+.code-body{margin:0;padding:16px 0;font:500 .82rem/1.75 var(--mono);color:var(--ink);overflow-x:auto;counter-reset:ln}
+.code-body .l{display:block;padding:0 18px 0 0;white-space:pre;transition:background .2s,transform .7s var(--ease),opacity .7s var(--ease)}
+.code-body .l::before{counter-increment:ln;content:counter(ln);display:inline-block;width:2.6em;padding-right:1em;text-align:right;color:var(--muted);opacity:.5}
+.code-body .l:hover{background:var(--accent-soft)}
+.code-body .l.pre{transform:translateX(-14px);opacity:.15}
+.k{color:var(--accent)}.s{color:var(--warm)}.c{color:var(--muted);font-style:italic}.n{color:var(--ok)}
+.caret{display:inline-block;width:.55em;height:1.1em;vertical-align:-.2em;background:var(--accent);margin-left:2px;animation:blink 1s steps(1) infinite}
+.code-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap}
+.code-foot small{font:400 .72rem/1.4 var(--mono);color:var(--muted)}
+.run{font:600 .74rem/1 var(--mono);border:0;background:var(--ink);color:var(--bg);padding:9px 12px;border-radius:8px;cursor:pointer;display:inline-flex;gap:7px;align-items:center;transition:transform .2s var(--ease)}
+.run:hover{transform:translateY(-1px)}
+.run svg{width:11px;height:11px}
+.out{font:500 .8rem/1.6 var(--mono);padding:0 18px;max-height:0;overflow:hidden;transition:max-height .6s var(--ease),padding .6s var(--ease);background:color-mix(in srgb,var(--ink) 92%,var(--bg));color:var(--bg)}
+.out.show{max-height:220px;padding:14px 18px}
+.out .ok{color:#6fdc9f}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-top:56px;overflow:hidden}
 .stat{padding:18px 20px;border-left:1px solid var(--line);transition:background .3s}
 .stat:hover{background:var(--accent-soft)}
@@ -287,7 +284,7 @@ footer{padding-block:28px 40px;font:400 .78rem/1.5 var(--mono);color:var(--muted
       <div class="hero-grid">
         <div>
           <div class="eyebrow"><span class="dot" aria-hidden="true"></span>Open to Summer 2027 &amp; 6-month ML / SWE internships</div>
-          <h1><span id="hi">Hi, I'm Jayagna.</span><br>I build ML that <span class="rot" id="rot" aria-live="polite"><span>ships.</span></span></h1>
+          <h1><span id="hi">Hi, I'm Jayagna Patel.</span><br>I build ML that <span class="rot" id="rot" aria-live="polite"><span>ships.</span></span></h1>
           <p class="lede">CS + Mathematics student at <strong>BITS Pilani</strong> working on forecasting, optimization and retrieval systems. My projects run in production for a clinic, forecast Delhi's air three days ahead, and solve squad-building as an exact integer program.</p>
           <div class="cta">
             <a class="btn primary magnetic" href="#projects">See projects</a>
@@ -303,24 +300,19 @@ footer{padding-block:28px 40px;font:400 .78rem/1.5 var(--mono);color:var(--muted
           </div>
         </div>
 
-        <figure class="figure">
-          <div class="fig-head"><span>Fig. 1 · <b>SmogCast</b></span><span>PM2.5 µg/m³ · Delhi NCR</span></div>
-          <div class="chart-box" id="chartBox">
-            <svg id="fc" viewBox="0 0 400 210" role="img" aria-label="Illustrative chart: 48 hours of observed PM2.5 followed by a 72-hour forecast with an uncertainty band. Hover to read values."></svg>
-            <div class="tip" id="tip"></div>
-          </div>
-          <div class="fig-foot">
-            <p class="fig-cap">Illustrative · hover to read · 80% band</p>
-            <button class="rerun" id="rerun" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Run forecast</button>
-          </div>
+        <figure class="code" id="codeCard">
+          <div class="code-bar"><i></i><i></i><i></i><span>about_me.py</span></div>
+          <pre class="code-body" id="codeBody"><span class="l"><span class="k">class</span> <span class="n">Jayagna</span>(Engineer):</span><span class="l">    <span class="c"># CS + Maths @ BITS Pilani, class of 2028</span></span><span class="l">    focus    = [<span class="s">"applied ML"</span>, <span class="s">"forecasting"</span>,</span><span class="l">                <span class="s">"optimization"</span>, <span class="s">"GenAI / RAG"</span>]</span><span class="l">    stack    = [<span class="s">"Python"</span>, <span class="s">"scikit-learn"</span>, <span class="s">"FastAPI"</span>, <span class="s">"SQL"</span>]</span><span class="l">    believes = <span class="s">"if it isn't deployed, it isn't done"</span></span><span class="l"></span><span class="l">    <span class="k">def</span> <span class="n">next</span>(self):</span><span class="l">        <span class="k">return</span> <span class="s">"ML / SWE internship, summer 2027"</span><span class="caret" aria-hidden="true"></span></span></pre>
+          <div class="out" id="out" aria-live="polite"></div>
+          <div class="code-foot"><small>Click run to see what I'm up to</small><button class="run" id="runBtn" type="button"><svg viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><path d="M1 0l9 5-9 5z"/></svg>Run</button></div>
         </figure>
       </div>
 
       <div class="stats">
-        <div class="stat"><b data-count="150" data-pre="~">~150</b><span>patients/day on the clinic site I built &amp; run</span></div>
-        <div class="stat"><b data-count="19" data-pre="−" data-suf="%">−19%</b><span>next-day PM2.5 error vs persistence</span></div>
-        <div class="stat"><b data-count="139" data-suf="k">139k</b><span>FIFA player-seasons modelled</span></div>
-        <div class="stat"><b data-count="8.28" data-dec="2">8.28</b><span>CGPA · B.E. CS + M.Sc. Math</span></div>
+        <div class="stat"><b data-count="150" data-pre="~">~150</b><span>patients a day use the clinic website I built</span></div>
+        <div class="stat"><b data-count="2">2</b><span>ML internships completed</span></div>
+        <div class="stat"><b data-count="50" data-suf="+">50+</b><span>students mentored as ACM AI/ML Lead</span></div>
+        <div class="stat"><b data-count="8.28" data-dec="2">8.28</b><span>CGPA out of 10 at BITS Pilani</span></div>
       </div>
     </div>
   </div>
@@ -395,9 +387,9 @@ footer{padding-block:28px 40px;font:400 .78rem/1.5 var(--mono);color:var(--muted
           </div>
           <p>72-hour PM2.5 forecasts for 15 Delhi NCR stations, with an estimate of how much comes from crop fires upwind.</p>
           <div class="metrics">
-            <div class="metric"><b>−19%</b><span>error vs persistence</span><div class="bar"><i style="--w:19%"></i></div></div>
-            <div class="metric"><b>−42%</b><span>error vs climatology</span><div class="bar"><i style="--w:42%"></i></div></div>
-            <div class="metric"><b>≤16%</b><span>PM2.5 from crop fires</span><div class="bar"><i style="--w:16%"></i></div></div>
+            <div class="metric"><b>−19%</b><span>lower next-day error than a "same as today" guess</span><div class="bar"><i style="--w:19%"></i></div></div>
+            <div class="metric"><b>−42%</b><span>lower error than the seasonal average</span><div class="bar"><i style="--w:42%"></i></div></div>
+            <div class="metric"><b>≤16%</b><span>of smog traced to crop burning</span><div class="bar"><i style="--w:16%"></i></div></div>
           </div>
           <ul class="pts">
             <li>Multi-horizon gradient boosting on OpenAQ, ERA5 weather and NASA FIRMS fire data.</li>
@@ -415,9 +407,9 @@ footer{padding-block:28px 40px;font:400 .78rem/1.5 var(--mono);color:var(--muted
           </div>
           <p>Transfer planning for EA FC / FIFA career mode: forecast player growth, pick the best squad on a budget, and find cheaper replacements.</p>
           <div class="metrics">
-            <div class="metric"><b>+15%</b><span>vs EA's potential, 2-yr</span><div class="bar"><i style="--w:15%"></i></div></div>
-            <div class="metric"><b>60%</b><span>MILP beats greedy</span><div class="bar"><i style="--w:60%"></i></div></div>
-            <div class="metric"><b>63%</b><span>cheaper replacements</span><div class="bar"><i style="--w:63%"></i></div></div>
+            <div class="metric"><b>+15%</b><span>more accurate than EA's own growth ratings</span><div class="bar"><i style="--w:15%"></i></div></div>
+            <div class="metric"><b>60%</b><span>of test cases where the optimizer beats a simple pick</span><div class="bar"><i style="--w:60%"></i></div></div>
+            <div class="metric"><b>63%</b><span>cheaper like-for-like replacements found</span><div class="bar"><i style="--w:63%"></i></div></div>
           </div>
           <ul class="pts">
             <li>Gradient-boosted rating forecaster trained on 139k player-seasons.</li>
@@ -558,7 +550,6 @@ footer{padding-block:28px 40px;font:400 .78rem/1.5 var(--mono);color:var(--muted
     var dark = root.getAttribute('data-theme') ? root.getAttribute('data-theme')==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
     var next = dark?'light':'dark'; root.setAttribute('data-theme',next);
     try{localStorage.setItem('jp-theme',next)}catch(e){}
-    drawChart(true);
   });
 
   /* headline letters */
@@ -566,7 +557,7 @@ footer{padding-block:28px 40px;font:400 .78rem/1.5 var(--mono);color:var(--muted
     t.split('').forEach(function(c,i){var s=document.createElement('span');s.className='char';s.style.animationDelay=(i*28)+'ms';s.textContent=c===' '?' ':c;hi.appendChild(s)});}
 
   /* rotating word */
-  var words=['ships.','forecasts smog.','optimizes squads.','speaks Gujarati.','reads number plates.'];
+  var words=['ships.','people actually use.','works outside the notebook.','solves real problems.'];
   var rot=document.getElementById('rot'), wi=0;
   if(!RM) setInterval(function(){
     var cur=rot.querySelector('span:last-child'); wi=(wi+1)%words.length;
@@ -596,40 +587,15 @@ footer{padding-block:28px 40px;font:400 .78rem/1.5 var(--mono);color:var(--muted
   hero.addEventListener('pointerleave',function(){mouse.x=mouse.y=-999});
   size(); frame(); addEventListener('resize',function(){size();if(RM)frame()});
 
-  /* forecast chart */
-  var svg=document.getElementById('fc'), tip=document.getElementById('tip'), box=document.getElementById('chartBox');
-  var CW=400,CH=210,L=34,R=8,T=10,B=26,n=120,now=48,ymax=420,s=[],seed=7;
-  function rnd(){seed=(seed*16807)%2147483647;return seed/2147483647}
-  function gen(){s=[];var base=150+rnd()*70,amp=40+rnd()*50,ph=rnd()*6;for(var i=0;i<n;i++){var h=i%24;var di=55*Math.cos((h-22)/24*6.283);var tr=base+amp*Math.sin(i/38+ph)+i*(rnd()*.3+.2);var no=i<now?(rnd()-.5)*40:0;s.push(Math.max(35,tr+di+no))}}
-  var X=function(i){return L+(CW-L-R)*i/(n-1)}, Y=function(v){return T+(CH-T-B)*(1-Math.min(v,ymax)/ymax)};
-  function band(i){return 12+(i-now)*1.15}
-  function aqi(v){return v<=30?['Good','#2a9a63']:v<=60?['Satisfactory','#7cb342']:v<=90?['Moderate','#e0b321']:v<=120?['Poor','#e8862a']:v<=250?['Very poor','#d9442b']:['Severe','#8e2a4a']}
-  function p(a,b){var d='';for(var i=a;i<=b;i++)d+=(i===a?'M':'L')+X(i).toFixed(1)+' '+Y(s[i]).toFixed(1);return d}
-  function drawChart(keep){
-    if(!keep) gen();
-    var up='',lo='';for(var i=now;i<n;i++){up+=(i===now?'M':'L')+X(i).toFixed(1)+' '+Y(s[i]+band(i)).toFixed(1);lo=' L'+X(i).toFixed(1)+' '+Y(Math.max(0,s[i]-band(i))).toFixed(1)+lo}
-    var g='';[0,100,200,300,400].forEach(function(v){g+='<line class="axis" x1="'+L+'" x2="'+(CW-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" opacity="'+(v?.6:1)+'"/><text class="tick" x="'+(L-6)+'" y="'+(Y(v)+3)+'" text-anchor="end">'+v+'</text>'});
-    [0,24,72,96,119].forEach(function(i){var l=i===119?'+72h':(i<now?(i-now)+'h':'+'+(i-now)+'h');g+='<text class="tick" x="'+X(i)+'" y="'+(CH-8)+'" text-anchor="middle">'+l+'</text>'});
-    g+='<path class="band" id="bandP" d="'+up+lo+' Z"/><path class="obs" id="obsP" d="'+p(0,now)+'"/><path class="pred" id="predP" d="'+p(now,n-1)+'"/>';
-    g+='<line class="now" x1="'+X(now)+'" x2="'+X(now)+'" y1="'+T+'" y2="'+(CH-B)+'"/><text class="nowlbl" x="'+(X(now)+5)+'" y="'+(T+10)+'">now</text>';
-    g+='<line class="xh" id="xh" x1="0" x2="0" y1="'+T+'" y2="'+(CH-B)+'" opacity="0"/><circle class="xdot" id="xdot" r="4.5" cx="-20" cy="-20"/>';
-    svg.innerHTML=g;
-    if(!RM && !keep){var pr=document.getElementById('predP'),ob=document.getElementById('obsP'),bd=document.getElementById('bandP');
-      [ob,pr].forEach(function(el,k){var len=el.getTotalLength();el.style.strokeDasharray=len;el.style.strokeDashoffset=len;el.getBoundingClientRect();el.style.transition='stroke-dashoffset '+(k?1.4:1)+'s cubic-bezier(.2,.8,.2,1) '+(k?.9:.1)+'s';el.style.strokeDashoffset=0});
-      bd.style.opacity=0;bd.style.transition='opacity .8s ease 1.4s';requestAnimationFrame(function(){bd.style.opacity=''});
-      setTimeout(function(){pr.style.strokeDasharray='6 4';pr.style.transition='none'},2400);}
-    else {var pr2=document.getElementById('predP');pr2.style.strokeDasharray='6 4';}
-  }
-  function scrub(e){var r=svg.getBoundingClientRect();var sx=(e.clientX-r.left)/r.width*CW;var i=Math.round((sx-L)/(CW-L-R)*(n-1));if(i<0||i>=n){hide();return}
-    var xh=document.getElementById('xh'),xd=document.getElementById('xdot');xh.setAttribute('x1',X(i));xh.setAttribute('x2',X(i));xh.setAttribute('opacity',1);xd.setAttribute('cx',X(i));xd.setAttribute('cy',Y(s[i]));
-    xd.style.stroke=i<now?css('--ink'):css('--accent');
-    var a=aqi(s[i]);var lbl=i<now?'observed '+(i-now)+'h':(i===now?'now':'forecast +'+(i-now)+'h');
-    tip.innerHTML='<i style="background:'+a[1]+'"></i>'+Math.round(s[i])+' µg/m³ · '+a[0]+'<br><span style="opacity:.7">'+lbl+(i>now?' · ±'+Math.round(band(i)):'')+'</span>';
-    tip.style.left=(X(i)/CW*r.width)+'px';tip.style.top=(Y(s[i])/CH*r.height-8)+'px';tip.style.opacity=1}
-  function hide(){tip.style.opacity=0;var xh=document.getElementById('xh');if(xh)xh.setAttribute('opacity',0);var xd=document.getElementById('xdot');if(xd){xd.setAttribute('cx',-20)}}
-  box.addEventListener('pointermove',scrub);box.addEventListener('pointerdown',scrub);box.addEventListener('pointerleave',hide);
-  document.getElementById('rerun').addEventListener('click',function(){hide();drawChart(false)});
-  drawChart(false);
+  /* code card: lines slide in, Run prints output */
+  var lines=[].slice.call(document.querySelectorAll('#codeBody .l'));
+  if(!RM) lines.forEach(function(l,i){l.classList.add('pre');setTimeout(function(){l.classList.remove('pre')},350+i*110)});
+  var out=document.getElementById('out'), run=document.getElementById('runBtn'), busy=false;
+  run.addEventListener('click',function(){ if(busy) return; busy=true;
+    var msgs=['<span class="ok">&gt;&gt;&gt;</span> Jayagna().next()',"'ML / SWE internship, summer 2027'",'<span class="ok">✓</span> open to on-site, remote or abroad · <a href="#contact" style="color:inherit">say hi ↓</a>'];
+    out.innerHTML='';out.classList.add('show');
+    msgs.forEach(function(m,i){setTimeout(function(){var d=document.createElement('div');d.innerHTML=m;out.appendChild(d);if(i===msgs.length-1)busy=false},RM?0:i*420)});
+  });
 
   /* count-up stats */
   if(!RM) document.querySelectorAll('[data-count]').forEach(function(el){
@@ -646,7 +612,7 @@ footer{padding-block:28px 40px;font:400 .78rem/1.5 var(--mono);color:var(--muted
   if(io) document.querySelectorAll('.reveal').forEach(function(el,i){var r=el.getBoundingClientRect();if(r.top>innerHeight){el.classList.add('pre');el.style.transitionDelay=(el.classList.contains('proj')?(i%2)*90:0)+'ms';io.observe(el)}});
 
   /* card tilt + spotlight */
-  document.querySelectorAll('.tilt').forEach(function(c){
+  document.querySelectorAll('.tilt, #codeCard').forEach(function(c){
     c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
       c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');
       if(fine&&!RM&&!c.classList.contains('dim'))c.style.transform='perspective(900px) rotateX('+((.5-y)*5)+'deg) rotateY('+((x-.5)*(c.classList.contains('wide')?3:6))+'deg) translateY(-3px)'});
